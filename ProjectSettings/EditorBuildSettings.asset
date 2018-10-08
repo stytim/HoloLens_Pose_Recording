@@ -5,6 +5,9 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/HoloSLAM.unity
     guid: 6e60bce6aa80649459cd5141b3fb029b
+  - enabled: 1
+    path: Assets/HoloPose.unity
+    guid: fda1d46fbd9455e4faaa3e757f4e1bc8

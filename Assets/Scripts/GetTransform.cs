@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
+using System;
 
 public class GetTransform : MonoBehaviour {
 
@@ -23,24 +24,6 @@ public class GetTransform : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
-        //txt.text = "Pose Number: " + count + "\r\n" + num;
-        /***   Transform trnfrm = Camera.main.transform;
-           Tx = trnfrm.position.x;
-           Ty = trnfrm.position.y;
-           Tz = trnfrm.position.z;
-           Rx = trnfrm.rotation.eulerAngles.x;
-           Ry = trnfrm.rotation.eulerAngles.y;
-           Rz = trnfrm.rotation.eulerAngles.z;
-           string jsonTransform = JsonUtility.ToJson(this, true);
-
-           string path = Application.persistentDataPath + "/HoloData" + "Holo.json";
-           using (StreamWriter writer = new StreamWriter(path, true))
-           {
-               writer.WriteLine(jsonTransform.ToString());
-           }
-           ***/
-
-        // File.WriteAllText(Application.dataPath + "Holo.json", jsonTransform.ToString());
     }
 
 #if UNITY_UWP
@@ -63,17 +46,17 @@ public class GetTransform : MonoBehaviour {
         //   {
         //        writer.WriteLine(jsonTransform.ToString());
         //   }
-        File.WriteAllText(Application.persistentDataPath + "/HoloData" + count.ToString()+ ".json", jsonTransform.ToString());
+        File.WriteAllText(Application.persistentDataPath + "/HoloData" + String.Format("_{0:000}.json", count), jsonTransform.ToString());
 
         //    writer.Close();
        // Debug.Log("Saving Done!");
         var cameraRollFolder = Windows.Storage.KnownFolders.CameraRoll.Path;
      //   Debug.Log("Camera Folder Path: " + cameraRollFolder);
-        var newpath = Path.Combine(cameraRollFolder, "HoloData" + count.ToString() + ".json");
+        var newpath = Path.Combine(cameraRollFolder, "HoloData" + String.Format("_{0:000}.json", count));
      //   Debug.Log("New File Path: " + newpath);
-        File.Move(Application.persistentDataPath + "/HoloData" + count.ToString() + ".json", newpath);
+        File.Move(Application.persistentDataPath + "/HoloData" + String.Format("_{0:000}.json", count), newpath);
         
-        File.Delete(Application.persistentDataPath + "/HoloData" + count.ToString() + ".json");
+        File.Delete(Application.persistentDataPath + "/HoloData" + String.Format("_{0:000}.json", count));
         Debug.Log("Success!");
         txt.text = "Pose Number: " + count;
         //   num = File.ReadAllText(cameraRollFolder + "/Matrix.txt");
